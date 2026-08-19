@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://dff3ladx7lrpa"]
+
+[ext_resource type="Script" uid="uid://bjj6jnsnbqyo" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://jl5oenps7e2r" path="res://art/gun/crosshair.png" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://doaxeif63tsku" path="res://art/gun/shoot/0001.png" id="3_ivps1"]
+[ext_resource type="Texture2D" uid="uid://b4w0el3yyk5lr" path="res://art/gun/shoot/0002.png" id="4_pbfsw"]
+[ext_resource type="Texture2D" uid="uid://cljkpumtb1cbk" path="res://art/gun/shoot/0004.png" id="4_urp6f"]
+[ext_resource type="Texture2D" uid="uid://dsy2w0wc07etd" path="res://art/gun/shoot/0003.png" id="5_5tmop"]
+[ext_resource type="Texture2D" uid="uid://wj2s6755nqhr" path="res://art/gun/shoot/0005.png" id="5_bwjto"]
+[ext_resource type="Texture2D" uid="uid://biyoehgg4rdc0" path="res://art/gun/shoot/0006.png" id="8_7ahtn"]
+[ext_resource type="Texture2D" uid="uid://b8ipfjijuad7j" path="res://art/gun/shoot/0007.png" id="9_7lmhl"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_epxd5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_epxd5"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bogoe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_7lmhl")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_7lmhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ivps1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pbfsw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5tmop")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_urp6f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bwjto")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7ahtn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7lmhl")
+}],
+"loop": 0,
+"name": &"shoot",
+"speed": 8.0
+}]
+
+[node name="Player" type="CharacterBody3D" unique_id=992810451]
+script = ExtResource("1_4flbx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=473528345]
+mesh = SubResource("CapsuleMesh_epxd5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=162886028]
+shape = SubResource("CapsuleShape3D_epxd5")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1506136966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65899646, -0.4348061)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1100146397]
+
+[node name="Gun2" type="AnimatedSprite3D" parent="." unique_id=191256033]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0.035, 0.75, -0.9)
+no_depth_test = true
+texture_filter = 0
+render_priority = 127
+sprite_frames = SubResource("SpriteFrames_bogoe")
+animation = &"shoot"
+
+[node name="Crosshair" type="Sprite3D" parent="." unique_id=790207531]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.0013378523, 0.6588688, -0.9)
+no_depth_test = true
+texture_filter = 2
+render_priority = 127
+texture = ExtResource("3_i3pqv")

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://0h3bwp3uj6wv"]
+
+[ext_resource type="Script" uid="uid://pbtan3q61wpe" path="res://monster.gd" id="1_s3gyj"]
+[ext_resource type="PackedScene" uid="uid://bb8y460ay5p8y" path="res://impact_particles.tscn" id="2_mrqeg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g2tbl"]
+shading_mode = 0
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_127wi"]
+material = SubResource("StandardMaterial3D_g2tbl")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_127wi"]
+
+[node name="Monster" type="StaticBody3D" unique_id=1505504485]
+script = ExtResource("1_s3gyj")
+impact = ExtResource("2_mrqeg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=148847457]
+mesh = SubResource("BoxMesh_127wi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=755970305]
+shape = SubResource("BoxShape3D_127wi")

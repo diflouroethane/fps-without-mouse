@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bb8y460ay5p8y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3yc3k"]
+render_priority = 127
+shading_mode = 0
+albedo_color = Color(0.30588236, 0, 0.9411765, 1)
+billboard_mode = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_bapaj"]
+material = SubResource("StandardMaterial3D_3yc3k")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="ImpactParticles" type="CPUParticles3D" unique_id=1045136331]
+emitting = false
+amount = 20
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_bapaj")
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, -9, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dfssmi0nt50g7"]
+
+[ext_resource type="Script" uid="uid://dnmlp25nilbav" path="res://hazard_collision.gd" id="1_vvwfb"]
+
+[node name="HazardCollision" type="Area3D" unique_id=1081328889]
+script = ExtResource("1_vvwfb")

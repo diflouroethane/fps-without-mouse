@@ -3,8 +3,25 @@
 [sub_resource type="BoxMesh" id="BoxMesh_127wi"]
 size = Vector3(4, 1, 4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_suabh"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ichvf"]
 size = Vector3(4, 1, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_t7hg2"]
+size = Vector3(4, 5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2w8g"]
+size = Vector3(4, 5, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ichvf"]
+material = SubResource("StandardMaterial3D_h2yge")
+size = Vector3(4, 3, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_suabh"]
+size = Vector3(4, 3, 4)
 
 [node name="Mesh_library" type="Node3D" unique_id=1929916351]
 
@@ -14,4 +31,22 @@ mesh = SubResource("BoxMesh_127wi")
 [node name="StaticBody3D" type="StaticBody3D" parent="floor" unique_id=51866926]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D" unique_id=158691455]
+shape = SubResource("BoxShape3D_ichvf")
+
+[node name="wall" type="MeshInstance3D" parent="." unique_id=1560055481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2, 0)
+mesh = SubResource("BoxMesh_t7hg2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall" unique_id=2143761818]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall/StaticBody3D" unique_id=1161969916]
+shape = SubResource("BoxShape3D_g2w8g")
+
+[node name="hazard" type="MeshInstance3D" parent="." unique_id=1594408561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+mesh = SubResource("BoxMesh_ichvf")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="hazard" unique_id=2117582671]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hazard/StaticBody3D" unique_id=978271508]
 shape = SubResource("BoxShape3D_suabh")

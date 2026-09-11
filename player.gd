@@ -15,9 +15,11 @@ var target_camera_rotation_left: float = 2.5
 var target_camera_rotation_right: float = -2.5
 
 func _ready() -> void:
+	Global.player_pos = global_position
 	target_rotation = global_rotation.y
 
 func _physics_process(delta: float) -> void:
+	Global.player_pos = global_position
 	#print("hii")
 	# Add the gravity.
 	if not is_on_floor():

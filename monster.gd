@@ -9,9 +9,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	position += basis.x *1*delta
+	look_at(Global.player_pos)
+	position += (-basis.z) *2*delta
 
 func die() -> void:
+	Global.room["enemies"]-=1
+	print(Global.room["enemies"])
 	$MeshInstance3D.hide()
 	var i: CPUParticles3D = impact.instantiate()
 	add_child(i)

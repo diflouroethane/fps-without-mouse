@@ -2,5 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dnmlp25nilbav" path="res://hazard_collision.gd" id="1_vvwfb"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_vvwfb"]
+size = Vector3(4.5, 3, 4.5)
+
 [node name="HazardCollision" type="Area3D" unique_id=1081328889]
 script = ExtResource("1_vvwfb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=156739519]
+shape = SubResource("BoxShape3D_vvwfb")
+debug_color = Color(1, 1, 1, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

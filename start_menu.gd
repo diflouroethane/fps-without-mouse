@@ -1,4 +1,4 @@
-extends Area3D
+extends Control
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,7 +11,5 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_body_entered(body: Node3D) -> void:
-	if body is Player:
-		print("player hit hazard")
-		body.hurt()
+func _on_start_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://main.tscn")

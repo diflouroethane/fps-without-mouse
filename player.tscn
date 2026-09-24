@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://n36by0agv43n" path="res://bullet.tscn" id="2_nvl01"]
 [ext_resource type="Texture2D" uid="uid://jl5oenps7e2r" path="res://art/gun/crosshair.png" id="3_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://doaxeif63tsku" path="res://art/gun/shoot/0001.png" id="3_ivps1"]
+[ext_resource type="Script" uid="uid://b2y60ek26m47m" path="res://camera_3d.gd" id="3_urp6f"]
 [ext_resource type="Texture2D" uid="uid://b4w0el3yyk5lr" path="res://art/gun/shoot/0002.png" id="4_pbfsw"]
 [ext_resource type="Texture2D" uid="uid://cljkpumtb1cbk" path="res://art/gun/shoot/0004.png" id="4_urp6f"]
 [ext_resource type="Texture2D" uid="uid://dsy2w0wc07etd" path="res://art/gun/shoot/0003.png" id="5_5tmop"]
@@ -11,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://biyoehgg4rdc0" path="res://art/gun/shoot/0006.png" id="8_7ahtn"]
 [ext_resource type="Texture2D" uid="uid://b8ipfjijuad7j" path="res://art/gun/shoot/0007.png" id="9_7lmhl"]
 [ext_resource type="Texture2D" uid="uid://bqm7uk2nv7m2u" path="res://art/muzzleflash/flash.png" id="10_n7ghd"]
+[ext_resource type="Texture2D" uid="uid://douju4megtlmy" path="res://art/effects/hurt/hurtv1.png" id="12_ivps1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_epxd5"]
 
@@ -70,6 +72,33 @@ tracks/0/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraPivot/hurtFlash:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ivps1"]
+resource_name = "hurt"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CameraPivot/hurtFlash:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.09),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_n7ghd"]
 resource_name = "shoot"
@@ -80,7 +109,7 @@ tracks/0/path = NodePath("CameraPivot/MuzzleFlash:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994),
+"times": PackedFloat32Array(0, 0.16666667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -117,8 +146,13 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nvl01"]
 _data = {
 &"RESET": SubResource("Animation_nvl01"),
+&"hurt": SubResource("Animation_ivps1"),
 &"shoot": SubResource("Animation_n7ghd")
 }
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_127wi"]
+radius = 0.7
+height = 2.2
 
 [node name="Player" type="CharacterBody3D" unique_id=992810451]
 script = ExtResource("1_4flbx")
@@ -134,6 +168,7 @@ shape = SubResource("CapsuleShape3D_epxd5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65899646, -0.4348061)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1100146397]
+script = ExtResource("3_urp6f")
 
 [node name="Gun2" type="AnimatedSprite3D" parent="CameraPivot" unique_id=191256033]
 transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0.035, 0.09100354, -0.46519387)
@@ -141,6 +176,7 @@ no_depth_test = true
 texture_filter = 0
 render_priority = 127
 sprite_frames = SubResource("SpriteFrames_bogoe")
+animation = &"shoot"
 
 [node name="Crosshair" type="Sprite3D" parent="CameraPivot" unique_id=790207531]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.0013378523, -0.00012767315, -0.46519387)
@@ -158,5 +194,45 @@ texture = ExtResource("10_n7ghd")
 [node name="Muzzle" type="Marker3D" parent="CameraPivot" unique_id=172947085]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.0013378523, -0.00012767315, -0.46519387)
 
+[node name="hurtFlash" type="Sprite3D" parent="CameraPivot" unique_id=232276016]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, -0.525)
+texture_filter = 0
+texture = ExtResource("12_ivps1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CameraPivot" unique_id=1479962519]
+
+[node name="Control" type="Control" parent="CameraPivot/CanvasLayer" unique_id=1995062768]
+layout_mode = 3
+anchor_right = 0.354
+anchor_bottom = 0.083000004
+offset_right = 0.09599304
+offset_bottom = 0.107997894
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CameraPivot/CanvasLayer/Control" unique_id=1348219670]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 27.0
+grow_horizontal = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CameraPivot/CanvasLayer/Control/VBoxContainer" unique_id=402550393]
+layout_mode = 2
+
+[node name="EnemiesLabel" type="Label" parent="CameraPivot/CanvasLayer/Control/VBoxContainer" unique_id=1869352800]
+layout_mode = 2
+text = "Enemies left: 0"
+
 [node name="GunAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1300377585]
 libraries/ = SubResource("AnimationLibrary_nvl01")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=540845435]
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=736692059]
+shape = SubResource("CapsuleShape3D_127wi")
+
+[node name="PowerupTimer" type="Timer" parent="." unique_id=738141167]
+one_shot = true
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

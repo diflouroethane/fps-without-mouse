@@ -20,3 +20,6 @@ func _on_body_entered(body: Node3D) -> void:
 	if body is Monster:
 		body.die()
 		queue_free()
+	#if body is Powerup:
+		#print("hit powerup")
+		#body._on_body_entered(self)

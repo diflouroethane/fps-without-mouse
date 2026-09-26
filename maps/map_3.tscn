@@ -14,7 +14,7 @@ point_count = 7
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_fpksy"]
 
-[node name="Map1" type="GridMap" unique_id=461341534]
+[node name="Map3" type="GridMap" unique_id=461341534]
 mesh_library = ExtResource("1_o07xg")
 cell_size = Vector3(4, 1, 4)
 data = {
@@ -31,7 +31,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.477598, 2, 0)
 curve = SubResource("Curve3D_n2bu5")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1959936551]
-transform = Transform3D(-0.61005807, 0.015296077, 0.79218924, 0, 0.9997869, -0.019304957, -0.7923352, -0.011777205, -0.60994565, 31.290771, 1, 6.4394474)
+transform = Transform3D(-0.61005807, 0.015296073, 0.79218924, 0, 0.99978656, -0.019304957, -0.7923352, -0.011777202, -0.60994565, 31.290771, 1, 6.4394474)
 
 [node name="EnemySpawner" parent="Path3D/PathFollow3D" unique_id=948441148 instance=ExtResource("3_wq2xb")]
 transform = Transform3D(1, 0, 5.820766e-11, -9.094947e-13, 1, -7.6884543e-10, 0, 1.6247714e-10, 1, 0, 0.923646, -0.011571884)
@@ -40,3 +40,8 @@ interval = 1.0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/EnemySpawner" unique_id=1555938003]
 transform = Transform3D(-4.3706677e-08, -1, 0, 1, -4.3712134e-08, 1.8626451e-09, -9.313226e-10, 1.1641532e-10, 1, 0, -0.923646, 0.011571884)
 mesh = SubResource("CapsuleMesh_fpksy")
+
+[node name="PowerupStart" type="Marker3D" parent="." unique_id=1924037299]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 4)
+
+[connection signal="complete" from="." to="." method="_on_complete"]

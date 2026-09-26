@@ -3,8 +3,8 @@ extends CharacterBody3D
 class_name Player
 
 @export var bullet_scene: PackedScene
-
-const SPEED = 10
+var DEFAULT_SPEED = 10
+var SPEED = DEFAULT_SPEED
 const anim_speed: float = 2.0
 const JUMP_VELOCITY = 4.5
 var rotate_speed: float = 0.5
@@ -19,6 +19,8 @@ var max_health: int = 10
 var health: int = max_health
 var def_s: float = 0.05
 var s: float = def_s
+var current_powerup = -1
+var fshoot = false
 @onready var progress_bar: ProgressBar = $CameraPivot/CanvasLayer/Control/VBoxContainer/ProgressBar
 
 func _ready() -> void:
@@ -65,10 +67,18 @@ func _physics_process(delta: float) -> void:
 		camera_to = 0
 	
 	if Input.is_action_just_pressed("shoot"):
-		if $GunAnimationPlayer.is_playing() == false:
+		#if fshoot:
+			#return
+		if $GunAnimationPlayer.is_playing() == false and !fshoot:
 			$GunAnimationPlayer.play("shoot")
 		#$CameraPivot/Gun2.play("shoot")
-		#shoot()
+	if Input.is_action_pressed("shoot"):
+		if fshoot:
+			if $GunAnimationPlayer.is_playing() == false:
+				$GunAnimationPlayer.play("shoot")
+		
+	if Input.is_action_just_pressed("ability"):
+		use_powerup()
 	
 	if direction:
 		velocity.x = direction.x * SPEED * (15 if dashing else 1)
@@ -82,7 +92,7 @@ func _physics_process(delta: float) -> void:
 		#if global_rotation.y > target_rotation+threshold:
 			#
 	dashing = false
-	
+	$CameraPivot/CanvasLayer/Control/VBoxContainer/PowerupTimeLeft.value = $PowerupTimer.time_left
 	move_and_slide()
 
 func shoot() -> void:
@@ -90,7 +100,7 @@ func shoot() -> void:
 	
 	get_parent().add_child(b)
 	b.global_transform = $CameraPivot/Muzzle.global_transform
-	b.scale = Vector3(s,s,s)
+	b.scale = Vector3(s,s,0.05)
 
 func rotate_player(dir: int, step: int = rotate_step) -> void:
 	#print("hi", target_rotation, global_rotation.y)
@@ -119,25 +129,52 @@ func hurt() -> void:
 		print("dead")
 		get_tree().quit()
 
-func pUp(type: Global.powerups) -> void:
-	print("got a powerup of ", Global.powerups.keys()[type], "!!!")
-	if type == Global.powerups.FASTSHOOT:
+func use_powerup() -> void:
+	var powerup_name = Global.powerups.keys()[current_powerup]
+	if current_powerup == -1:
+		return
+	print("used a powerup of ",powerup_name , "!!!")
+	if current_powerup == Global.powerups.FASTSHOOT:
 		$PowerupTimer.wait_time = 2
 		set_speeds(200)
+		fshoot=true
 		$PowerupTimer.timeout.connect(fastshoot_end)
 		
-	elif type == Global.powerups.LARGEBULLETS:
+	elif current_powerup == Global.powerups.LARGEBULLETS:
 		$PowerupTimer.wait_time = 5
-		s = 50
+		s = 20
 		$PowerupTimer.timeout.connect(largebullets_end)
-	elif type == Global.powerups.SPEED:
-		pass
+	elif current_powerup == Global.powerups.SPEED:
+		$PowerupTimer.wait_time = 10
+		SPEED *= 2
+		$PowerupTimer.timeout.connect(speed_end)
+	
+	$CameraPivot/CanvasLayer/Control/VBoxContainer/PowerupTimeLeft.max_value = $PowerupTimer.wait_time
+	current_powerup = -1
 	$PowerupTimer.start()
+
+func pUp(type: Global.powerups) -> void:
+	print("got a powerup of ", Global.powerups.keys()[type], "!!!")
+	current_powerup = type
+	var powerup_name = Global.powerups.keys()[current_powerup]
+	$CameraPivot/CanvasLayer/Control/VBoxContainer/PowerupTimeLeft/PUpLabel.text = powerup_name
 	
 func fastshoot_end() -> void:
 	print("hi")
 	set_speeds(anim_speed)
+	fshoot = false
+	end()
 
 func largebullets_end() -> void:
 	s = def_s
 	print("large bullets ended")
+	end()
+
+func speed_end() -> void:
+	SPEED = DEFAULT_SPEED
+	print("no more fast :(")
+	end()
+	
+func end() -> void:
+	current_powerup = -1
+	$CameraPivot/CanvasLayer/Control/VBoxContainer/PowerupTimeLeft/PUpLabel.text = "no powerup active or held"

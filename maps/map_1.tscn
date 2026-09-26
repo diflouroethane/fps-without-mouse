@@ -28,6 +28,9 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="PlayerStart" type="Marker3D" parent="." unique_id=1548513505]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
+[node name="PowerupStart" type="Marker3D" parent="." unique_id=601833089]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 4)
+
 [node name="Path3D" type="Path3D" parent="." unique_id=1937561758]
 curve = SubResource("Curve3D_n2bu5")
 
@@ -53,3 +56,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -6)
 
 [node name="HazardCollision4" parent="." unique_id=592175751 instance=ExtResource("4_nli1r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -6)
+
+[connection signal="complete" from="." to="." method="_on_complete"]

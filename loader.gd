@@ -3,7 +3,7 @@ extends Node3D
 @onready var animation_player: AnimationPlayer = $"../../../AnimationPlayer"
 @onready var player: Player = $"../Player"
 var avail_maps: int = 3
-var last_I: int = 0
+var last_I: int = 1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -18,13 +18,16 @@ func next():
 	var mapI = randi_range(1, avail_maps)
 	print("%d -> mapI, %d -> last_I" % [mapI, last_I])
 	if mapI == last_I:
+		print("same as before, rerolling")
 		next()
-	last_I = mapI
-	for i in get_children():
-		remove_child(i)
-	var m_to_load: String = "res://maps/map_%d.tscn" % mapI
-	print(m_to_load)
-	var scene: PackedScene = ResourceLoader.load(m_to_load)
-	var s = scene.instantiate()
-	add_child(s)
-	player.global_position = s.get_child(0).global_position
+	else:
+		last_I = mapI
+		for i in get_children():
+			remove_child(i)
+		var m_to_load: String = "res://maps/map_%d.tscn" % mapI
+		print(m_to_load)
+		var scene: PackedScene = ResourceLoader.load(m_to_load)
+		var s = scene.instantiate()
+		add_child(s)
+		player.global_position = s.get_child(0).global_position
+	

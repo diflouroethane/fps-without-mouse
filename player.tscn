@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b8ipfjijuad7j" path="res://art/gun/shoot/0007.png" id="9_7lmhl"]
 [ext_resource type="Texture2D" uid="uid://bqm7uk2nv7m2u" path="res://art/muzzleflash/flash.png" id="10_n7ghd"]
 [ext_resource type="Texture2D" uid="uid://douju4megtlmy" path="res://art/effects/hurt/hurtv1.png" id="12_ivps1"]
+[ext_resource type="PackedScene" uid="uid://blgi5d28tnc0f" path="res://game_over.tscn" id="14_bwjto"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_epxd5"]
 
@@ -247,9 +248,29 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 11
 text = "placeholder"
 
+[node name="Label" type="Label" parent="CameraPivot/CanvasLayer/Control/VBoxContainer/PowerupTimeLeft" unique_id=2039004100]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+text = "'Q' to activate"
+horizontal_alignment = 1
+vertical_alignment = 2
+autowrap_mode = 2
+
 [node name="EnemiesLabel" type="Label" parent="CameraPivot/CanvasLayer/Control/VBoxContainer" unique_id=1869352800]
 layout_mode = 2
 text = "Enemies left: 0"
+
+[node name="GameOver" parent="CameraPivot/CanvasLayer" unique_id=1590858487 instance=ExtResource("14_bwjto")]
+visible = false
 
 [node name="GunAnimationPlayer" type="AnimationPlayer" parent="." unique_id=1300377585]
 libraries/ = SubResource("AnimationLibrary_nvl01")

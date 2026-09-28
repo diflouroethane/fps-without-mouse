@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://blgi5d28tnc0f"]
+
+[ext_resource type="Script" uid="uid://bv632km4bvirb" path="res://game_over.gd" id="1_y26ei"]
+
+[node name="GameOver" type="Control" unique_id=1590858487]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y26ei")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=665079491]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer" unique_id=1918947531]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=251446079]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=762073573]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Game over :/"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scoreLable" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=968045742]
+layout_mode = 2
+text = "You cleared XXXX rooms!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=488038177]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1760395869]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1115914584]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StartButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=941847431]
+layout_mode = 2
+text = "Restart"
+
+[node name="ExitButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=786585843]
+layout_mode = 2
+text = "Exit"
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=547571682]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=2046256290]
+propagate_maximum_size = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

@@ -6,6 +6,7 @@ var dead:bool = false
 var spd: float = 3.5
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	spd += Global.rooms_completed
 	pass # Replace with function body.
 
 

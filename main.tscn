@@ -21,6 +21,7 @@ _data = {
 }
 
 [node name="Main" type="Node3D" unique_id=608465170]
+process_mode = 1
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1679177239]
 anchors_preset = 15

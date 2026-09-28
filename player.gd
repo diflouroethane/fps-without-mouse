@@ -127,7 +127,11 @@ func hurt() -> void:
 	health -= 1
 	if health <= 0:
 		print("dead")
-		get_tree().quit()
+		$CameraPivot/CanvasLayer/GameOver.visible=true
+		$CameraPivot/CanvasLayer/GameOver/HBoxContainer/VBoxContainer/scoreLable.text = "You cleared %d" % Global.rooms_completed
+		
+		#get_tree().paused = true
+		#get_tree().quit()
 
 func use_powerup() -> void:
 	var powerup_name = Global.powerups.keys()[current_powerup]

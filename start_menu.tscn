@@ -2,6 +2,25 @@
 
 [ext_resource type="Script" uid="uid://dx1fau1236anf" path="res://start_menu.gd" id="1_jwbto"]
 
+[sub_resource type="InputEventKey" id="InputEventKey_jwbto"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="InputEventKey" id="InputEventKey_vpdu5"]
+device = -1
+keycode = 32
+unicode = 32
+
+[sub_resource type="Shortcut" id="Shortcut_jwbto"]
+events = [SubResource("InputEventKey_jwbto"), SubResource("InputEventKey_vpdu5")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ia0g5"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_vpdu5"]
+events = [SubResource("InputEventKey_ia0g5")]
+
 [node name="StartMenu" type="Control" unique_id=2042442363]
 layout_mode = 3
 anchors_preset = 15
@@ -9,6 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_jwbto")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1968469067]
@@ -18,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer" unique_id=140048386]
 layout_mode = 2
@@ -50,11 +71,15 @@ size_flags_horizontal = 3
 
 [node name="StartButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1928367697]
 layout_mode = 2
-text = "Start"
+mouse_filter = 2
+shortcut = SubResource("Shortcut_jwbto")
+text = "Start [enter or space]"
 
 [node name="ExitButton" type="Button" parent="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1662864907]
 layout_mode = 2
-text = "Exit"
+mouse_filter = 2
+shortcut = SubResource("Shortcut_vpdu5")
+text = "Exit [Esc]"
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1082995499]
 layout_mode = 2
@@ -67,3 +92,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

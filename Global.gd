@@ -17,3 +17,6 @@ func init_room(enemies):
 	room["complete"] = false
 	room["enemies"] = enemies
 	room["pUp"] = false
+
+func reset_game():
+	rooms_completed = 0
